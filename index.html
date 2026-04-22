@@ -137,8 +137,8 @@
       <span class="opacity-80" id="tide-time">pleine mer 18h42 · coeff. 74</span>
     </div>
     <div class="flex items-center gap-2 shrink-0" style="color:var(--lagoon); opacity:.75;">
-      <span class="sm:hidden">24°C</span>
-      <span class="hidden sm:inline">Arcachon · 24°C · vent O 12 nds</span>
+      <span class="sm:hidden" id="weather-short">24°C</span>
+      <span class="hidden sm:inline" id="weather-full">Arcachon · 24°C · vent O 12 nds</span>
     </div>
   </div>
 </div>
@@ -451,7 +451,7 @@
   }, { threshold: 0.35 });
   document.querySelectorAll('.hl').forEach(el => io.observe(el));
 
-  // Feed filter
+  // Feed filter (Les bons spots)
   const fbtns = document.querySelectorAll('#filters .pill');
   const tiles = document.querySelectorAll('#mosaic .tile');
   fbtns.forEach(b => b.addEventListener('click', () => {
@@ -460,30 +460,82 @@
     tiles.forEach(t => { t.style.display = (c === 'all' || t.dataset.cat === c) ? '' : 'none'; });
   }));
 
-  // Tide indicator — decorative, based on current time
-  (function(){
-    const now = new Date();
-    const h = now.getHours() + now.getMinutes()/60;
-    const phase = ((h / 12.42) % 1);
-    const rising = phase < 0.5;
-    const state = document.getElementById('tide-state');
-    const time = document.getElementById('tide-time');
-    state.textContent = rising ? 'montante' : 'descendante';
-    const minutesToSlack = Math.round((rising ? 0.5 - phase : 1 - phase) * 12.42 * 60);
-    const target = new Date(now.getTime() + minutesToSlack*60000);
-    const hh = String(target.getHours()).padStart(2,'0');
-    const mm = String(target.getMinutes()).padStart(2,'0');
-    time.textContent = (rising ? 'pleine' : 'basse') + ' mer ' + hh + 'h' + mm + ' · coeff. 74';
+  // REAL-TIME Tide + Weather (Open-Meteo, free, no API key required)
+  (async function(){
+    const ARCACHON = { lat: 44.66, lng: -1.17 };
+    const tideState = document.getElementById('tide-state');
+    const tideTime = document.getElementById('tide-time');
+    const weatherFull = document.getElementById('weather-full');
+    const weatherShort = document.getElementById('weather-short');
     const wave = document.getElementById('tide-wave');
-    let t = 0;
-    function anim(){
-      t += 0.035;
-      const amp = rising ? 3 + Math.sin(t)*1.2 : 2 + Math.sin(t)*0.8;
-      wave.setAttribute('d', `M0 5 Q 7.5 ${5-amp} 15 5 T 30 5 T 45 5 T 60 5`);
-      requestAnimationFrame(anim);
+
+    function degToCardinal(deg){
+      const dirs = ['N','NE','E','SE','S','SO','O','NO'];
+      return dirs[Math.round(((deg % 360) / 45)) % 8];
     }
-    anim();
+    function pad(n){ return String(n).padStart(2,'0'); }
+
+    // Weather: Open-Meteo free forecast API
+    try {
+      const wu = `https://api.open-meteo.com/v1/forecast?latitude=${ARCACHON.lat}&longitude=${ARCACHON.lng}&current=temperature_2m,wind_speed_10m,wind_direction_10m&timezone=Europe%2FParis&wind_speed_unit=kn`;
+      const wr = await fetch(wu);
+      const wd = await wr.json();
+      const t = Math.round(wd.current.temperature_2m);
+      const ws = Math.round(wd.current.wind_speed_10m);
+      const wdir = degToCardinal(wd.current.wind_direction_10m);
+      if (weatherFull) weatherFull.textContent = `Arcachon · ${t}°C · vent ${wdir} ${ws} nds`;
+      if (weatherShort) weatherShort.textContent = `${t}°C`;
+    } catch(e){ console.warn('weather fetch failed', e); }
+
+    // Tide: Open-Meteo Marine — compute rising/falling + next peak + approx coefficient
+    let rising = true;
+    try {
+      const tu = `https://marine-api.open-meteo.com/v1/marine?latitude=${ARCACHON.lat}&longitude=${ARCACHON.lng}&hourly=sea_level_height_msl&timezone=Europe%2FParis`;
+      const tr = await fetch(tu);
+      const td = await tr.json();
+      const heights = td.hourly.sea_level_height_msl;
+      const times = td.hourly.time;
+      const now = new Date();
+      let idx = 0;
+      for (let i = 0; i < times.length; i++){
+        if (new Date(times[i]) > now){ idx = Math.max(0, i - 1); break; }
+      }
+      const curH = heights[idx];
+      const nextH = heights[Math.min(idx + 1, heights.length - 1)];
+      rising = nextH > curH;
+      // Find next peak (local min or max)
+      let peakIdx = idx;
+      for (let i = idx + 1; i < heights.length - 1; i++){
+        const prev = heights[i-1], cur = heights[i], nxt = heights[i+1];
+        if (rising && cur >= prev && cur >= nxt){ peakIdx = i; break; }
+        if (!rising && cur <= prev && cur <= nxt){ peakIdx = i; break; }
+      }
+      const peakTime = new Date(times[peakIdx]);
+      const peakLabel = rising ? 'pleine mer' : 'basse mer';
+      // Approx coefficient from 24h amplitude around the peak
+      const win = heights.slice(Math.max(0, peakIdx - 12), Math.min(heights.length, peakIdx + 12));
+      const amp = Math.max(...win) - Math.min(...win);
+      // Arcachon: amp ~1.5m ≈ coef 45, ~3.5m ≈ coef 95 (linear approx)
+      const coef = Math.max(20, Math.min(120, Math.round(20 + amp * 25)));
+      if (tideState) tideState.textContent = rising ? 'montante' : 'descendante';
+      if (tideTime) tideTime.textContent = `${peakLabel} ${pad(peakTime.getHours())}h${pad(peakTime.getMinutes())} · coeff. ${coef}`;
+    } catch(e){ console.warn('tide fetch failed', e); }
+
+    // Decorative wave animation
+    if (wave){
+      let t = 0;
+      (function anim(){
+        t += 0.035;
+        const a = rising ? 3 + Math.sin(t)*1.2 : 2 + Math.sin(t)*0.8;
+        wave.setAttribute('d', `M0 5 Q 7.5 ${5-a} 15 5 T 30 5 T 45 5 T 60 5`);
+        requestAnimationFrame(anim);
+      })();
+    }
   })();
+
+  // Note: Instagram follower counter removed — no reliable public client-side API since 2018.
+  // To re-add it with real data, set up a small backend (Cloudflare Worker, Vercel function)
+  // that fetches the count server-side and exposes it as JSON.
 </script>
 
 </body>
