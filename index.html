@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>NOMADE — Le Bassin, sans filtre</title>
+<title>NOMADE · Le Bassin, sans filtre</title>
+<!-- Favicon: round powder-blue badge with N, echo of the Nomade logo -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g' cx='35%25' cy='30%25'%3E%3Cstop offset='0%25' stop-color='%23A7BDD4'/%3E%3Cstop offset='100%25' stop-color='%238AA5C4'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='46' fill='url(%23g)' stroke='%233E5C76' stroke-width='2'/%3E%3Cpath d='M30 72 L30 30 L40 30 L60 60 L60 30 L70 30 L70 72 L60 72 L40 42 L40 72 Z' fill='%23FFFDF7'/%3E%3Cpath d='M20 78 Q 30 74 40 78 T 60 78 T 80 78' fill='none' stroke='%23FFFDF7' stroke-width='2' stroke-linecap='round' opacity='.5'/%3E%3C/svg%3E"/>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%238AA5C4'/%3E%3Cpath d='M30 72 L30 30 L40 30 L60 60 L60 30 L70 30 L70 72 L60 72 L40 42 L40 72 Z' fill='%23FFFDF7'/%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=DM+Sans:opsz,wght@9..40,300..700&display=swap" rel="stylesheet" />
@@ -120,6 +123,8 @@
 </head>
 <body data-screen-label="NOMADE Homepage">
 
+<!-- STICKY HEADER WRAPPER (tide + nav always visible) -->
+<div class="sticky top-0 z-50">
 <!-- TIDE RIBBON -->
 <div id="tide-bar" class="w-full">
   <div class="max-w-[1280px] mx-auto px-4 sm:px-5 py-1.5 flex items-center justify-between gap-4 whitespace-nowrap overflow-hidden">
@@ -137,7 +142,7 @@
 </div>
 
 <!-- NAV -->
-<nav class="relative z-40 nav-blur">
+<nav class="nav-blur">
   <div class="max-w-[1280px] mx-auto px-4 sm:px-5 py-3 flex items-center justify-between gap-3">
     <a href="#" class="flex items-center gap-2 sm:gap-3 shrink-0" aria-label="Nomade">
       <!-- Logo mark -->
@@ -157,6 +162,8 @@
     </a>
   </div>
 </nav>
+</div>
+<!-- /STICKY HEADER WRAPPER -->
 
 <!-- HERO -->
 <header class="relative overflow-hidden">
@@ -189,7 +196,7 @@
 
     <p class="mt-10 md:mt-12 max-w-xl text-[17px] md:text-[20px] leading-[1.55]" style="color:var(--lagoon);">
       Bons plans, soirées, spots secrets.<br class="hidden md:block"/>
-      Les nomades repèrent, tu profites — chaque semaine.
+      Les nomades repèrent, tu profites. Chaque semaine.
     </p>
 
     <div class="mt-8 flex flex-wrap items-center gap-3">
@@ -226,7 +233,7 @@
       <div class="relative polaroid rot-1">
         <span class="tape" style="top:-10px; left:50%; transform:translateX(-50%) rotate(-3deg);"></span>
         <div class="ph ph-placeholder" style="--ph-a:#D8B4D8; --ph-b:#8AA5C4;">
-          <img class="ph-img" loading="lazy" alt="Chez Magne à L'Herbe" src="https://www.lege-capferret.com/wp-content/uploads/2024/06/herbe-20-610x610.jpg"/>
+          <img class="ph-img" loading="lazy" alt="Chez Magne à L'Herbe" src="https://images.unsplash.com/photo-1691104379335-b55b4616f13b?w=800&h=1000&fit=crop&q=80&auto=format"/>
           <span class="ph-label">L'Herbe · Cap Ferret</span>
         </div>
         <div class="mt-3 px-1">
@@ -238,7 +245,7 @@
       <div class="relative polaroid rot-2">
         <span class="tape blue" style="top:-10px; right:10px; transform: rotate(6deg);"></span>
         <div class="ph ph-placeholder" style="--ph-a:#B8D4E3; --ph-b:#7FAFC4;">
-          <img class="ph-img" loading="lazy" alt="Café de la Plage, Moulleau" src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&h=1000&fit=crop&q=80&auto=format"/>
+          <img class="ph-img" loading="lazy" alt="Café de la Plage, Moulleau" src="https://images.unsplash.com/photo-1628659942986-fc51f6752e15?w=800&h=1000&fit=crop&q=80&auto=format"/>
           <span class="ph-label">Le Moulleau · Arcachon</span>
         </div>
         <div class="mt-3 px-1">
@@ -250,7 +257,7 @@
       <div class="relative polaroid rot-3">
         <span class="tape" style="top:-10px; left:12px; transform: rotate(-8deg);"></span>
         <div class="ph ph-placeholder" style="--ph-a:#C8B8D4; --ph-b:#6A5B7A;">
-          <img class="ph-img" loading="lazy" alt="Métropolitain Club Arcachon" src="https://api.cloudly.space/resize/cropratio/1920/1080/75/aHR0cHM6Ly9jZHQzMy5tZWRpYS50b3VyaW5zb2Z0LmV1L3VwbG9hZC9tZXRyb3BvbGl0YWluLTItMi5qcGc=/image.webp"/>
+          <img class="ph-img" loading="lazy" alt="Métropolitain Club Arcachon" src="https://images.unsplash.com/photo-1632929198245-b8f5c2ea9dd0?w=800&h=1000&fit=crop&q=80&auto=format"/>
           <span class="ph-label">Métropolitain · Arcachon</span>
         </div>
         <div class="mt-3 px-1">
@@ -262,7 +269,7 @@
       <div class="relative polaroid rot-4">
         <span class="tape blue" style="top:-10px; left:50%; transform: translateX(-50%) rotate(4deg);"></span>
         <div class="ph ph-placeholder" style="--ph-a:#F4C79A; --ph-b:#E08A4A;">
-          <img class="ph-img" loading="lazy" alt="Fête du Port à Andernos" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=1000&fit=crop&q=80&auto=format"/>
+          <img class="ph-img" loading="lazy" alt="Fête du Port à Andernos" src="https://images.unsplash.com/photo-1589967127698-03987ca17cb0?w=800&h=1000&fit=crop&q=80&auto=format"/>
           <span class="ph-label">Andernos-les-Bains</span>
         </div>
         <div class="mt-3 px-1">
@@ -307,7 +314,7 @@
       <div class="flex-1 w-full">
         <iframe
           style="border-radius:14px; background:#FFFDF7; display:block;"
-          src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0"
+          src="https://open.spotify.com/embed/playlist/1SljFs9Nf8QmSAjgVVH9AU?utm_source=generator&theme=0"
           width="100%" height="152"
           frameborder="0"
           allowfullscreen=""
@@ -341,7 +348,7 @@
     <!-- Mosaic (5 picks — curated) -->
     <div id="mosaic" class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5" style="grid-auto-rows: 180px;">
       <a href="#" class="tile" data-cat="plages" style="grid-row: span 2; grid-column: span 2;">
-        <div class="cover" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=900&fit=crop&q=80&auto=format'); background-color:#BFDDE7;"></div>
+        <div class="cover" style="background-image: url('https://images.unsplash.com/photo-1632986852535-f15e9a6df5d6?w=1200&h=900&fit=crop&q=80&auto=format'); background-color:#BFDDE7;"></div>
         <div class="veil"></div>
         <span class="cat">Plages</span>
         <h4>Plage de Pereire au lever du jour</h4>
@@ -353,19 +360,19 @@
         <h4>Huîtres &amp; sunset au Pinasse Café</h4>
       </a>
       <a href="#" class="tile" data-cat="activites" style="grid-row: span 1;">
-        <div class="cover" style="background-image: url('https://images.unsplash.com/photo-1596306499317-8490232098c6?w=800&h=600&fit=crop&q=80&auto=format'); background-color:#C8B07E;"></div>
+        <div class="cover" style="background-image: url('https://images.unsplash.com/photo-1585147185534-aa4c04227cd5?w=800&h=600&fit=crop&q=80&auto=format'); background-color:#C8B07E;"></div>
         <div class="veil"></div>
         <span class="cat">Activités</span>
         <h4>La Dune du Pilat</h4>
       </a>
       <a href="#" class="tile" data-cat="soirees" style="grid-row: span 2; grid-column: span 2;">
-        <div class="cover" style="background-image: url('https://api.cloudly.space/resize/cropratio/1920/1080/75/aHR0cHM6Ly9jZHQzMy5tZWRpYS50b3VyaW5zb2Z0LmV1L3VwbG9hZC9tZXRyb3BvbGl0YWluLTItMi5qcGc=/image.webp'); background-color:#6A5B7A;"></div>
+        <div class="cover" style="background-image: url('https://images.unsplash.com/photo-1632929198245-b8f5c2ea9dd0?w=1200&h=900&fit=crop&q=80&auto=format'); background-color:#6A5B7A;"></div>
         <div class="veil"></div>
         <span class="cat">Soirées</span>
         <h4>Nuit chaude au Métropolitain</h4>
       </a>
       <a href="#" class="tile" data-cat="sports" style="grid-row: span 2;">
-        <div class="cover" style="background-image: url('https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&h=1200&fit=crop&q=80&auto=format'); background-color:#A7C5D6;"></div>
+        <div class="cover" style="background-image: url('https://images.unsplash.com/photo-1632986852546-c44877efbe1e?w=800&h=1200&fit=crop&q=80&auto=format'); background-color:#A7C5D6;"></div>
         <div class="veil"></div>
         <span class="cat">Sports</span>
         <h4>Surf à la Salie Sud</h4>
@@ -432,7 +439,7 @@
     </div>
 
     <div class="mt-10 pt-5 border-t flex flex-wrap justify-between items-center gap-3 text-[12px]" style="border-color:rgba(255,253,247,.3);">
-      <div class="opacity-80">© 2026 Nomade — Mentions légales · CGU · Cookies</div>
+      <div class="opacity-80">© 2026 Nomade · Mentions légales · CGU · Cookies</div>
       <div class="font-hand text-[20px]">fait avec ❤️ sur le Bassin</div>
     </div>
   </div>
