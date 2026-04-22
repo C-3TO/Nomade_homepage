@@ -127,16 +127,18 @@
 <div class="sticky top-0 z-50">
 <!-- TIDE RIBBON -->
 <div id="tide-bar" class="w-full">
-  <div class="max-w-[1280px] mx-auto px-4 sm:px-5 py-1.5 flex items-center justify-between gap-4 whitespace-nowrap overflow-hidden">
-    <div class="flex items-center gap-2.5 min-w-0" style="color:var(--lagoon);">
-      <svg width="26" height="10" viewBox="0 0 60 10" class="opacity-80 shrink-0">
+  <div class="max-w-[1280px] mx-auto px-3 sm:px-5 py-1.5 flex items-center justify-between gap-2 sm:gap-4 text-[11px] sm:text-[12px] flex-wrap">
+    <div class="flex items-center gap-2 min-w-0" style="color:var(--lagoon);">
+      <svg width="22" height="9" viewBox="0 0 60 10" class="opacity-80 shrink-0 sm:w-[26px] sm:h-[10px]">
         <path id="tide-wave" d="M0 5 Q 7.5 0 15 5 T 30 5 T 45 5 T 60 5" fill="none" stroke="#3E5C76" stroke-width="1.4" stroke-linecap="round"/>
       </svg>
-      <span class="font-medium">Marée <span id="tide-state" class="font-hand text-[15px]" style="color:var(--lagoon-ink);">montante</span></span>
-      <span class="opacity-60 hidden sm:inline">· <span id="tide-time">pleine mer 18h42 · coeff. 74</span></span>
+      <span class="font-medium">Marée <span id="tide-state" class="font-hand text-[14px] sm:text-[15px]" style="color:var(--lagoon-ink);">montante</span></span>
+      <span class="opacity-60">·</span>
+      <span class="opacity-80" id="tide-time">pleine mer 18h42 · coeff. 74</span>
     </div>
-    <div class="hidden md:flex items-center gap-3 shrink-0" style="color:var(--lagoon); opacity:.8;">
-      <span>Arcachon · 24°C · vent O 12 nds</span>
+    <div class="flex items-center gap-2 shrink-0" style="color:var(--lagoon); opacity:.75;">
+      <span class="sm:hidden">24°C</span>
+      <span class="hidden sm:inline">Arcachon · 24°C · vent O 12 nds</span>
     </div>
   </div>
 </div>
@@ -153,7 +155,7 @@
     </a>
     <div class="hidden md:flex items-center gap-6 lg:gap-7 font-hand text-[21px]" style="color:var(--lagoon);">
       <a href="#sortir" class="hover:opacity-70">Sortir</a>
-      <a href="#feed" class="hover:opacity-70">Le feed</a>
+      <a href="#spots" class="hover:opacity-70">Les bons spots</a>
       <a href="#ns" class="hover:opacity-70">Newsletter</a>
     </div>
     <a href="https://instagram.com/nomademediacom" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium whitespace-nowrap" style="background:var(--powder); color:#FFFDF7; box-shadow: 0 6px 16px -8px rgba(138,165,196,.9);">
@@ -204,8 +206,8 @@
         Ce week-end
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
-      <a href="#feed" class="inline-flex items-center gap-2 px-5 py-3 rounded-full font-medium text-[15px]" style="background:rgba(255,253,247,.8); color:var(--lagoon); border:1px solid rgba(62,92,118,.15);">
-        Voir le feed
+      <a href="#spots" class="inline-flex items-center gap-2 px-5 py-3 rounded-full font-medium text-[15px]" style="background:rgba(255,253,247,.8); color:var(--lagoon); border:1px solid rgba(62,92,118,.15);">
+        Voir les bons spots
       </a>
     </div>
   </div>
@@ -327,18 +329,17 @@
   </div>
 </section>
 
-<!-- SECTION: FEED -->
-<section id="feed" class="relative py-20 md:py-28" style="background:linear-gradient(180deg, transparent, rgba(232,220,196,.5), transparent);">
+<!-- SECTION: LES BONS SPOTS -->
+<section id="spots" class="relative py-20 md:py-28" style="background:linear-gradient(180deg, transparent, rgba(232,220,196,.5), transparent);">
   <div class="max-w-[1280px] mx-auto px-5">
     <div class="flex items-end justify-between gap-6 flex-wrap mb-8 md:mb-10">
       <div>
-        <div class="font-hand text-[20px] md:text-[22px]" style="color:var(--coral);">le feed en mieux</div>
-        <h2 class="section-title mt-1" style="font-size: clamp(44px, 7vw, 88px);">Direct du Bassin.</h2>
+        <div class="font-hand text-[20px] md:text-[22px]" style="color:var(--coral);">les coups de cœur</div>
+        <h2 class="section-title mt-1" style="font-size: clamp(44px, 7vw, 88px);">Les bons spots.</h2>
       </div>
       <div id="filters" class="flex flex-wrap gap-2">
         <button class="pill active" data-cat="all">Tout</button>
         <button class="pill" data-cat="plages">Plages</button>
-        <button class="pill" data-cat="soirees">Soirées</button>
         <button class="pill" data-cat="restos">Restos</button>
         <button class="pill" data-cat="activites">Activités</button>
         <button class="pill" data-cat="sports">Sports</button>
@@ -347,31 +348,31 @@
 
     <!-- Mosaic (5 picks — curated) -->
     <div id="mosaic" class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5" style="grid-auto-rows: 180px;">
-      <a href="https://instagram.com/nomademediacom" target="_blank" rel="noopener" class="tile" data-cat="plages" style="grid-row: span 2; grid-column: span 2;">
+      <a href="https://instagram.com/nomademediacom" target="_blank" rel="noopener" class="tile col-span-2 row-span-2" data-cat="plages">
         <div class="cover" style="background-image: url('https://images.unsplash.com/photo-1632986852535-f15e9a6df5d6?w=1200&h=900&fit=crop&q=80&auto=format'); background-color:#BFDDE7;"></div>
         <div class="veil"></div>
         <span class="cat">Plages</span>
         <h4>Plage de Pereire au lever du jour</h4>
       </a>
-      <a href="https://instagram.com/nomademediacom" target="_blank" rel="noopener" class="tile" data-cat="restos" style="grid-row: span 1;">
+      <a href="https://instagram.com/nomademediacom" target="_blank" rel="noopener" class="tile col-span-1 row-span-1" data-cat="restos">
         <div class="cover" style="background-image: url('https://www.pinasse-cafe.com/wp-content/uploads/2024/04/terrasse-vue-mer-bassin-arcachon.jpg'); background-color:#E08A4A;"></div>
         <div class="veil"></div>
         <span class="cat">Restos</span>
         <h4>Huîtres &amp; sunset au Pinasse Café</h4>
       </a>
-      <a href="https://instagram.com/nomademediacom" target="_blank" rel="noopener" class="tile" data-cat="activites" style="grid-row: span 1;">
+      <a href="https://instagram.com/nomademediacom" target="_blank" rel="noopener" class="tile col-span-1 row-span-1" data-cat="activites">
         <div class="cover" style="background-image: url('https://images.unsplash.com/photo-1585147185534-aa4c04227cd5?w=800&h=600&fit=crop&q=80&auto=format'); background-color:#C8B07E;"></div>
         <div class="veil"></div>
         <span class="cat">Activités</span>
         <h4>La Dune du Pilat</h4>
       </a>
-      <a href="https://instagram.com/nomademediacom" target="_blank" rel="noopener" class="tile" data-cat="soirees" style="grid-row: span 2; grid-column: span 2;">
+      <a href="https://instagram.com/nomademediacom" target="_blank" rel="noopener" class="tile col-span-2 row-span-2" data-cat="restos">
         <div class="cover" style="background-image: url('https://images.unsplash.com/photo-1632929198245-b8f5c2ea9dd0?w=1200&h=900&fit=crop&q=80&auto=format'); background-color:#6A5B7A;"></div>
         <div class="veil"></div>
-        <span class="cat">Soirées</span>
-        <h4>Nuit chaude au Métropolitain</h4>
+        <span class="cat">Restos</span>
+        <h4>Coucher de soleil à La Co(o)rniche</h4>
       </a>
-      <a href="https://instagram.com/nomademediacom" target="_blank" rel="noopener" class="tile" data-cat="sports" style="grid-row: span 2;">
+      <a href="https://instagram.com/nomademediacom" target="_blank" rel="noopener" class="tile col-span-2 row-span-1 md:col-span-1 md:row-span-2" data-cat="sports">
         <div class="cover" style="background-image: url('https://images.unsplash.com/photo-1632986852546-c44877efbe1e?w=800&h=1200&fit=crop&q=80&auto=format'); background-color:#A7C5D6;"></div>
         <div class="veil"></div>
         <span class="cat">Sports</span>
@@ -422,7 +423,7 @@
         <div class="font-hand text-[24px] mb-3">Navigue</div>
         <ul class="space-y-2 opacity-90 text-[14px]">
           <li><a href="#sortir" class="hover:underline">Où sortir</a></li>
-          <li><a href="#feed" class="hover:underline">Le feed</a></li>
+          <li><a href="#spots" class="hover:underline">Les bons spots</a></li>
           <li><a href="#ns" class="hover:underline">Newsletter</a></li>
         </ul>
       </div>
